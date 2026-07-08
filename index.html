@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaastu Shastra — Science of Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+    
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to Main Content</a>
+
+    <!-- ===========================
+         HEADER / NAV
+    =========================== -->
+    <header role="banner">
+        <div class="logo">
+            <a href="#main-content">
+                <span class="logo-mark" aria-hidden="true">卐</span>
+                Vaastu Shastra
+            </a>
+        </div>
+        <nav aria-label="Primary Navigation">
+            <ul>
+                <li><a href="#main-content" class="active" aria-current="page">Home</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="#consultation">Consultation</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>                
+                <li><button type="button" class="nav-trigger" data-open="inbox">Inbox</button></li>
+                <li><button type="button" class="nav-trigger" data-open="profile">Profile</button></li>
+                <li><button type="button" class="nav-trigger nav-trigger--accent" data-open="auth" data-tab="login">Login</button></li>
+                <li><button type="button" class="nav-trigger nav-trigger--accent" data-open="auth" data-tab="signup">Sign Up</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+
+        <form role="search" class="site-search" onsubmit="return false;">
+            <label for="search" class="sr-only">Search Articles</label>
+            <input id="search" type="search" placeholder="Search articles…" aria-label="Search Articles">
+            <button type="submit" aria-label="Search">🔍</button>
+        </form>
+
+        <!-- HERO -->
+        <section class="banner" aria-labelledby="hero-title">
+            <div class="banner-copy">
+                <p class="eyebrow">Vastu Purusha Mandala</p>
+                <h1 id="hero-title">Design homes that face the sun<br>and hold their peace.</h1>
+                <p class="hero-sub">
+                    Vaastu Shastra reads a building the way a compass reads the earth —
+                    aligning walls, doorways, and rooms with the eight directions so a
+                    home carries balance long after it's built.
+                </p>
+                <a class="btn" href="#articles">Explore Articles</a>
+            </div>
+
+            <div class="compass" aria-hidden="true">
+                <svg viewBox="0 0 320 320" role="img" aria-label="Eight-direction Vastu compass">
+                    <circle class="compass-ring" cx="160" cy="160" r="150"></circle>
+                    <circle class="compass-ring compass-ring--inner" cx="160" cy="160" r="96"></circle>
+                    <g class="compass-spokes">
+                        <line x1="160" y1="10" x2="160" y2="310"></line>
+                        <line x1="10" y1="160" x2="310" y2="160"></line>
+                        <line x1="47" y1="47" x2="273" y2="273"></line>
+                        <line x1="273" y1="47" x2="47" y2="273"></line>
+                    </g>
+                    <circle class="compass-core" cx="160" cy="160" r="34"></circle>
+                    <text class="compass-label" x="160" y="34">N</text>
+                    <text class="compass-label" x="160" y="298">S</text>
+                    <text class="compass-label" x="18" y="166">W</text>
+                    <text class="compass-label" x="292" y="166">E</text>
+                    <text class="compass-label compass-label--minor" x="248" y="62">NE</text>
+                    <text class="compass-label compass-label--minor" x="72" y="62">NW</text>
+                    <text class="compass-label compass-label--minor" x="248" y="266">SE</text>
+                    <text class="compass-label compass-label--minor" x="72" y="266">SW</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- ARTICLES -->
+        <section class="articles" id="articles" aria-labelledby="articles-title">
+            <div class="section-head">
+                <h2 id="articles-title">From the Article Library</h2>
+                <p>Readings on Vaastu principles, remedies, and how to bring them into everyday spaces.</p>
+            </div>
+
+            <div class="card-grid">
+
+                <article class="card">
+                    <p class="card-tag">Foundations</p>
+                    <h3>Vastu Shastra Explained</h3>
+                    <p>
+                        <em>People talk about a room's "vibe" without knowing there's a science behind it.</em>
+                        Vastu Shastra is that science — an ancient framework for building homes and workspaces
+                        that channel positive energy instead of blocking it. It's why the practice still guides
+                        the construction of houses, offices, and temples alike.
+                    </p>
+                    <p>
+                        The word itself splits in two: <strong>Vastu</strong> means dwelling, <strong>Shastra</strong>
+                        means science. Together they describe a discipline for balancing the five elements —
+                        earth, water, fire, air, and space — across a building's layout. A living room angled
+                        toward the east to greet the morning sun is one small example of a much larger system.
+                    </p>
+                    <a class="card-link" href="#articles">Read the full article →</a>
+                </article>
+
+                <article class="card">
+                    <p class="card-tag">Directions</p>
+                    <h3>Reading a Room by Its Compass Point</h3>
+                    <p>
+                        Every direction in Vastu carries its own character — the northeast holds water and
+                        clarity, the southwest holds stability and weight. Learn how consultants map a floor
+                        plan onto the eight directions before a single wall goes up.
+                    </p>
+                    <a class="card-link" href="#articles">Read the full article →</a>
+                </article>
+
+                <article class="card">
+                    <p class="card-tag">Remedies</p>
+                    <h3>Simple Fixes for an Unbalanced Home</h3>
+                    <p>
+                        Not every home is built on Vastu principles from day one. This piece walks through
+                        low-cost remedies — mirrors, plants, color, furniture placement — that correct
+                        imbalance without any construction at all.
+                    </p>
+                    <a class="card-link" href="#articles">Read the full article →</a>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CONSULTATION -->
+        <section class="consultation" id="consultation" aria-labelledby="consultation-title">
+            <div class="section-head">
+                <h2 id="consultation-title">Consultation Services</h2>
+                <p>Book time with a Vaastu consultant for a personalised reading of your home or office.</p>
+            </div>
+
+            <div class="card-grid card-grid--consultants">
+
+                <article class="profile-card">
+                    <img src="img/profile-pic.png" alt="Portrait of Vaastu consultant Prithvi">
+                    <div class="profile-info">
+                        <h3>Prithvi</h3>
+                        <p class="profile-role">Vaastu Expert</p>
+                        <p class="profile-meta">10 years experience · New Delhi</p>
+                        <button type="button" class="chat-button" data-open="inbox" data-consultant="Prithvi" aria-haspopup="dialog">Chat Now</button>
+                    </div>
+                </article>
+
+                <article class="profile-card">
+                    <img src="consultant2.jpg" alt="Portrait of Vaastu consultant Meera">
+                    <div class="profile-info">
+                        <h3>Meera</h3>
+                        <p class="profile-role">Vaastu Expert</p>
+                        <p class="profile-meta">10 years experience · New Delhi</p>
+                        <button type="button" class="chat-button" data-open="inbox" data-consultant="Meera" aria-haspopup="dialog">Chat Now</button>
+                    </div>
+                </article>
+
+                <article class="profile-card">
+                    <img src="consultant3.jpg" alt="Portrait of Vaastu consultant Arjun">
+                    <div class="profile-info">
+                        <h3>Arjun</h3>
+                        <p class="profile-role">Vaastu Expert</p>
+                        <p class="profile-meta">10 years experience · New Delhi</p>
+                        <button type="button" class="chat-button" data-open="inbox" data-consultant="Arjun" aria-haspopup="dialog">Chat Now</button>
+                    </div>
+                </article>
+
+            </div>
+
+            <img class="consultation-photo" src="consultant2.jpg"
+                alt="Vaastu consultant discussing architectural plans with a client" loading="lazy">
+        </section>
+
+        <!-- COMMUNITY -->
+        <section class="community" aria-labelledby="community-title">
+            <h2 id="community-title">Community Forums</h2>
+            <p>Connect with other users, ask questions, and share what's worked in your own home.</p>
+        </section>
+
+        <!-- ABOUT US -->
+        <section class="about" id="about" aria-labelledby="about-title">
+            <div class="section-head">
+                <p class="eyebrow" style="justify-content:center;display:flex;">Who we are</p>
+                <h2 id="about-title">About Us</h2>
+                <p>
+                    Vaastu Shastra was built to make an ancient science approachable — clear articles
+                    paired with real consultants, so you can go from "what is Vastu?" to a room-by-room
+                    plan without getting lost in jargon.
+                </p>
+            </div>
+            <div class="card-grid">
+                <article class="card card--about">
+                    <p class="card-tag">Rooted</p>
+                    <h3>Grounded in tradition</h3>
+                    <p>Every guide traces back to classical Vastu texts, not trend or guesswork.</p>
+                </article>
+                <article class="card card--about">
+                    <p class="card-tag">Plain</p>
+                    <h3>Explained simply</h3>
+                    <p>We translate direction, element, and layout principles into everyday language.</p>
+                </article>
+                <article class="card card--about">
+                    <p class="card-tag">Backed</p>
+                    <h3>Supported by experts</h3>
+                    <p>When an article isn't enough, our consultants review your actual floor plan.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="contact" id="contact" aria-labelledby="contact-title">
+            <div class="section-head">
+                <p class="eyebrow" style="justify-content:center;display:flex;">Get in touch</p>
+                <h2 id="contact-title">Contact Us</h2>
+            </div>
+            <div class="contact-grid">
+                <form id="contact-form" class="auth-card" novalidate>
+                    <div class="form-field">
+                        <label for="contact-name">Name</label>
+                        <input id="contact-name" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="contact-email">Email</label>
+                        <input id="contact-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message" rows="5" required></textarea>
+                    </div>
+                    <p id="contact-feedback" class="form-feedback" role="status" aria-live="polite" hidden></p>
+                    <button class="btn form-submit" type="submit">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <ul>
+                        <li><span>Email</span>hello@vaastushastra.example</li>
+                        <li><span>Phone</span>+91 00000 00000</li>
+                        <li><span>Studio</span>Jaipur, Rajasthan, India</li>
+                        <li><span>Hours</span>Mon–Sat, 10am–6pm IST</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2024 Vaastu Shastra</p>
+        <p>Developed by <b>Athome</b></p>
+    </footer>
+
+    <!-- ===========================
+         OVERLAY PANELS
+         Each enters from its own compass direction —
+         Login/Sign Up from the East (new beginnings),
+         Profile drops from the North (self),
+         Inbox slides from the West (connection).
+    =========================== -->
+    <div class="panel-backdrop" data-backdrop hidden></div>
+
+    <!-- AUTH DRAWER (right / East) -->
+    <div class="panel panel--right" id="auth-drawer" role="dialog" aria-modal="true" aria-labelledby="auth-heading" hidden>
+        <div class="panel-head">
+            <div class="auth-tabs" role="tablist" aria-label="Login or Sign Up">
+                <button type="button" class="auth-tab active" data-tab-btn="login" role="tab" aria-selected="true">Login</button>
+                <button type="button" class="auth-tab" data-tab-btn="signup" role="tab" aria-selected="false">Sign Up</button>
+            </div>
+            <button type="button" class="panel-close" data-close aria-label="Close">✕</button>
+        </div>
+
+        <div class="panel-body">
+            <div class="auth-pane" data-tab-pane="login">
+                <h2 id="auth-heading">Log in to your account</h2>
+                <p class="auth-sub">Pick up your saved articles and consultations.</p>
+                <form id="login-form" novalidate>
+                    <div class="form-field">
+                        <label for="login-email">Email</label>
+                        <input id="login-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="login-password">Password</label>
+                        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <p id="login-feedback" class="form-feedback" role="status" aria-live="polite" hidden></p>
+                    <button class="btn form-submit" type="submit">Log In</button>
+                </form>
+                <p class="auth-foot">New here? <a href="#" data-tab-btn="signup">Create an account</a></p>
+            </div>
+
+            <div class="auth-pane" data-tab-pane="signup" hidden>
+                <h2>Create your account</h2>
+                <p class="auth-sub">Save articles, book consultants, and track your home's Vastu plan.</p>
+                <form id="signup-form" novalidate>
+                    <div class="form-field">
+                        <label for="signup-name">Full name</label>
+                        <input id="signup-name" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="signup-email">Email</label>
+                        <input id="signup-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="signup-password">Password</label>
+                        <input id="signup-password" name="password" type="password" autocomplete="new-password" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="signup-confirm">Confirm password</label>
+                        <input id="signup-confirm" name="confirm" type="password" autocomplete="new-password" required>
+                    </div>
+                    <div class="form-check">
+                        <input id="signup-terms" name="terms" type="checkbox" required>
+                        <label for="signup-terms">I agree to the Terms and Privacy Policy</label>
+                    </div>
+                    <p id="signup-feedback" class="form-feedback" role="status" aria-live="polite" hidden></p>
+                    <button class="btn form-submit" type="submit">Create Account</button>
+                </form>
+                <p class="auth-foot">Already have an account? <a href="#" data-tab-btn="login">Log in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE PANEL (top / North) -->
+    <div class="panel panel--top" id="profile-panel" role="dialog" aria-modal="true" aria-labelledby="profile-heading" hidden>
+        <div class="panel-head">
+            <h2 id="profile-heading">Your Profile</h2>
+            <button type="button" class="panel-close" data-close aria-label="Close">✕</button>
+        </div>
+        <div class="panel-body panel-body--row">
+            <div class="avatar">
+                <img src="img/profile-pic.png" alt="Your profile photo">
+                <p>Member since 2024</p>
+            </div>
+            <div class="profile-main">
+                <div class="profile-detail-grid">
+                    <div class="form-field">
+                        <label for="profile-name">Full name</label>
+                        <input id="profile-name" type="text" value="Anjali Rao">
+                    </div>
+                    <div class="form-field">
+                        <label for="profile-email">Email</label>
+                        <input id="profile-email" type="email" value="anjali.rao@example.com">
+                    </div>
+                    <div class="form-field">
+                        <label for="profile-city">City</label>
+                        <input id="profile-city" type="text" value="Jaipur">
+                    </div>
+                    <div class="form-field">
+                        <label for="profile-phone">Phone</label>
+                        <input id="profile-phone" type="tel" value="+91 00000 00000">
+                    </div>
+                </div>
+                <p id="profile-feedback" class="form-feedback" role="status" aria-live="polite" hidden></p>
+                <button id="profile-save" class="btn form-submit" type="button" style="max-width:220px;">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INBOX DRAWER (left / West) -->
+    <div class="panel panel--left" id="inbox-drawer" role="dialog" aria-modal="true" aria-labelledby="inbox-heading" hidden>
+        <div class="panel-head">
+            <h2 id="inbox-heading">Inbox</h2>
+            <button type="button" class="panel-close" data-close aria-label="Close">✕</button>
+        </div>
+        <div class="panel-body panel-body--chat">
+            <p class="chat-with">Chatting with <strong id="chat-consultant-name">a consultant</strong></p>
+            <div class="chat-thread" id="chat-thread" aria-live="polite">
+                <div class="chat-bubble chat-bubble--them">Namaste! How can I help with your space today?</div>
+            </div>
+            <form id="chat-form" class="chat-form" novalidate>
+                <label for="chat-input" class="sr-only">Type a message</label>
+                <input id="chat-input" type="text" placeholder="Type a message…" autocomplete="off">
+                <button class="btn" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+    </body>
+</html>
