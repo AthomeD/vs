@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vastu Disha — Entrance Direction Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-0:#F3ECDD;
+    --indigo-1:#FFFDF7;
+    --indigo-2:#F3ECDD;
+    --gold:#D9A441;
+    --gold-soft:#BF5B33;
+    --cream:#1F2A24;
+    --teal:#1F4F44;
+    --amber:#CC8B3C;
+    --vermillion:#BF5B33;
+    --muted:#556059;
+    --hairline:#E4D9BE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 50% -10%, var(--indigo-2) 0%, var(--indigo-0) 55%),
+      var(--indigo-0);
+    color:var(--cream);
+    font-family:'Karla',sans-serif;
+    min-height:100vh;
+    padding:32px 16px 56px;
+  }
+  .wrap{max-width:920px;margin:0 auto;}
+
+  header{text-align:center;margin-bottom:28px;}
+  .eyebrow{
+    font-family:'Karla',sans-serif;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--gold-soft);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Marcellus',serif;
+    font-weight:400;
+    font-size:44px;
+    margin:0 0 8px;
+    color:var(--teal);
+    letter-spacing:.01em;
+  }
+  h1 span{color:var(--gold-soft);font-style:italic;}
+  header p{
+    font-size:15px;
+    color:var(--muted);
+    max-width:520px;
+    margin:0 auto;
+    line-height:1.55;
+  }
+
+  .card{
+    background:linear-gradient(180deg, var(--indigo-1), var(--indigo-2));
+    border-top:4px solid var(--gold-soft);
+    border-radius:22px;
+    box-shadow:0 14px 34px rgba(31, 42, 36, 0.10);
+  }
+
+  .compass-card{
+    padding:28px 20px 24px;
+    margin-bottom:22px;
+    position:relative;
+  }
+
+  .dial-stage{
+    position:relative;
+    width:min(100%,420px);
+    margin:0 auto;
+    aspect-ratio:1/1;
+    touch-action:none;
+    cursor:grab;
+  }
+  .dial-stage:active{cursor:grabbing;}
+  svg#dial{width:100%;height:100%;display:block;user-select:none;}
+
+  .readout{
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    pointer-events:none;
+    width:58%;
+  }
+  .readout .deg{
+    font-family:'Marcellus',cursive;
+    font-size:clamp(26px,7vw,34px);
+    color:var(--gold-soft);
+    line-height:1;
+  }
+  .readout .dirname{
+    font-family:'Marcellus',serif;
+    font-weight:400;
+    font-size:clamp(15px,4vw,19px);
+    margin-top:2px;
+    color:var(--teal);
+  }
+  .readout .sanskrit{
+    font-family:'Karla',sans-serif;
+    font-style:italic;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:1px;
+  }
+
+  .badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:3px 12px;
+    border-radius:999px;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    font-weight:700;
+  }
+  .badge.excellent{background:rgba(31,79,68,.12);color:var(--teal);border:1px solid var(--teal);}
+  .badge.good{background:rgba(217,164,65,.18);color:#8a6220;border:1px solid var(--gold);}
+  .badge.caution{background:rgba(204,139,60,.16);color:#8a5a1f;border:1px solid var(--amber);}
+  .badge.avoid{background:rgba(191,91,51,.14);color:var(--gold-soft);border:1px solid var(--vermillion);}
+
+  .controls{
+    display:flex;flex-wrap:wrap;gap:14px;
+    align-items:center;justify-content:center;
+    margin-top:22px;
+  }
+  .controls input[type=range]{
+    flex:1 1 200px;
+    accent-color:var(--gold-soft);
+  }
+  .controls input[type=number]{
+    width:78px;
+    background:var(--indigo-0);
+    border:1px solid var(--hairline);
+    color:var(--cream);
+    border-radius:8px;
+    padding:7px 8px;
+    font-family:'Karla',sans-serif;
+    font-size:14px;
+    text-align:center;
+  }
+  .controls .unit{color:var(--muted);font-size:13px;}
+
+  button{
+    font-family:'Karla',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    border-radius:10px;
+    padding:10px 16px;
+    border:1px solid var(--hairline);
+    background:var(--indigo-1);
+    color:var(--teal);
+    cursor:pointer;
+    transition:border-color .15s ease, transform .1s ease;
+  }
+  button:hover{border-color:var(--gold-soft);}
+  button:active{transform:scale(.97);}
+  button.primary{
+    background:var(--gold-soft);
+    color:#fff;
+    border:none;
+  }
+  button.primary:hover{background:var(--gold);}
+  .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+  #compassStatus{
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:10px;
+    min-height:16px;
+  }
+
+  .legend{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:18px;
+    margin-bottom:22px;
+  }
+  .legend button.zonecard{
+    background:var(--indigo-1);
+    border:1px solid var(--hairline);
+    border-radius:12px;
+    padding:10px 8px;
+    text-align:left;
+    cursor:pointer;
+    color:var(--cream);
+  }
+  .legend button.zonecard.active{border-color:var(--gold-soft);box-shadow:0 0 0 1px var(--gold-soft) inset;}
+  .zonecard .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;}
+  .zonecard .zname{font-weight:600;font-size:12.5px;}
+  .zonecard .ztag{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block;margin-top:3px;}
+
+  .detail{padding:22px 24px;margin-bottom:22px;}
+  .detail h2{
+    font-family:'Marcellus',serif;
+    font-size:24px;margin:0 0 4px;color:var(--teal);
+  }
+  .detail .meta{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 14px;font-size:12.5px;color:var(--muted);}
+  .detail .meta b{color:var(--gold-soft);font-weight:600;}
+  .detail p{font-size:14px;line-height:1.65;color:var(--cream);margin:0 0 10px;}
+  .detail .remedy{
+    font-size:13px;
+    line-height:1.6;
+    color:#8a5a1f;
+    background:rgba(217,164,65,.12);
+    border-left:2px solid var(--gold);
+    padding:10px 14px;
+    border-radius:0 8px 8px 0;
+  }
+
+  footer{
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.6;
+    text-align:center;
+    max-width:640px;
+    margin:0 auto;
+    padding:0 12px;
+  }
+
+  @media (max-width:560px){
+    .legend{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">वास्तु शास्त्र · Directional Reference</div>
+    <h1>Vastu <span>Disha</span> Compass</h1>
+    <p>Find which of the eight Vastu directions your home's main entrance faces — drag the needle, type a degree, or use your phone's compass.</p>
+  </header>
+
+  <div class="card compass-card">
+    <div class="dial-stage" id="dialStage">
+      <svg id="dial" viewBox="0 0 400 400"></svg>
+      <div class="readout">
+        <div class="deg" id="degLabel">0°</div>
+        <div class="dirname" id="nameLabel">North</div>
+        <div class="sanskrit" id="sanskritLabel">Uttar</div>
+        <div id="badgeLabel"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <span class="unit">0°</span>
+      <input type="range" id="slider" min="0" max="359" step="1" value="0">
+      <span class="unit">359°</span>
+      <input type="number" id="degInput" min="0" max="359" value="0">
+    </div>
+
+    <div class="btn-row">
+      <button class="primary" id="liveBtn">Use device compass</button>
+      <button id="resetBtn">Reset to 0°</button>
+    </div>
+    <div id="compassStatus">Drag the needle above, or enter the degree from a physical compass reading.</div>
+  </div>
+
+  <div class="card legend" id="legend"></div>
+
+  <div class="card detail">
+    <h2 id="detailName">North · Uttar</h2>
+    <div class="meta">
+      <span><b>Deity:</b> <span id="detailDeity"></span></span>
+      <span><b>Element:</b> <span id="detailElement"></span></span>
+      <span><b>Rating:</b> <span id="detailRating"></span></span>
+    </div>
+    <p id="detailDesc"></p>
+    <div class="remedy" id="detailRemedy" style="display:none;"></div>
+  </div>
+
+  <footer>
+    Vastu Shastra is a traditional Indian belief system about spatial orientation, not a scientific or structural standard. These directional readings are offered for cultural and reference purposes — for construction or renovation decisions, consult a licensed architect or engineer, and a Vastu consultant if you wish to follow this tradition. Phone compasses can be thrown off by nearby metal, magnets, or magnetic phone cases — hold your device flat, away from these, and calibrate it (moving it in a figure-8) before taking a reading.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const zones = [
+    { name:"North", sanskrit:"Uttar", center:0, deity:"Kubera, lord of wealth", element:"Water",
+      rating:"excellent", ratingLabel:"Excellent",
+      desc:"Considered one of the most auspicious directions for a main entrance. Associated with career growth, cash flow and opportunity — traditionally kept open and uncluttered.",
+      remedy:null },
+    { name:"North-East", sanskrit:"Ishanya", center:45, deity:"Ishaan (a form of Shiva)", element:"Water & Space",
+      rating:"excellent", ratingLabel:"Best",
+      desc:"Regarded as the most sacred zone in classical Vastu — the meeting point of two positive elements. A door here is considered ideal for spiritual wellbeing, clarity and overall prosperity.",
+      remedy:null },
+    { name:"East", sanskrit:"Purva", center:90, deity:"Indra, king of the gods", element:"Air",
+      rating:"excellent", ratingLabel:"Excellent",
+      desc:"Faces the rising sun, so it's linked with health, vitality and fresh starts. A widely favoured direction for entrances in traditional planning.",
+      remedy:null },
+    { name:"South-East", sanskrit:"Agneya", center:135, deity:"Agni, god of fire", element:"Fire",
+      rating:"caution", ratingLabel:"Caution",
+      desc:"Classically assigned to the kitchen rather than the entrance, since fire energy here is thought to sit awkwardly with the comings and goings of a main door.",
+      remedy:"If your entrance already faces this way, some practitioners suggest keeping the threshold brightly lit and avoiding heavy, dark décor right at the doorway." },
+    { name:"South", sanskrit:"Dakshin", center:180, deity:"Yama, god of the afterlife", element:"Earth",
+      rating:"caution", ratingLabel:"Caution",
+      desc:"Traditionally considered a heavier, more grounded direction, better suited to solid walls or storage than a busy entrance.",
+      remedy:"If this is unavoidable, guidance often suggests a slightly raised threshold and a simple, understated doorway rather than an elaborate one." },
+    { name:"South-West", sanskrit:"Nairutya", center:225, deity:"Nairuti (associated with Rahu)", element:"Earth",
+      rating:"avoid", ratingLabel:"Avoid",
+      desc:"Seen as the 'heaviest' and most stabilising zone of a plot — ideally the most solid, enclosed corner of the house. A main door here is the most discouraged placement in classical Vastu.",
+      remedy:"Where it can't be changed, some practitioners recommend keeping this corner visually heavier and more solid than the rest of the façade — sturdier materials, fewer openings." },
+    { name:"West", sanskrit:"Paschim", center:270, deity:"Varuna, god of water and cosmic order", element:"Water",
+      rating:"good", ratingLabel:"Good",
+      desc:"A generally favourable direction, often linked with steady gains, stability and long-term security.",
+      remedy:null },
+    { name:"North-West", sanskrit:"Vayavya", center:315, deity:"Vayu, god of wind", element:"Air",
+      rating:"good", ratingLabel:"Good",
+      desc:"Associated with movement, travel and relationships — often considered well-suited to entrances used heavily by guests, or homes tied to trade and business.",
+      remedy:null },
+  ];
+  const ratingColor = { excellent:"#1F4F44", good:"#D9A441", caution:"#CC8B3C", avoid:"#BF5B33" };
+
+  function getZone(deg){
+    const idx = Math.floor((((deg+22.5)%360)+360)%360 / 45);
+    return zones[idx];
+  }
+  function polar(cx,cy,r,angleDeg){
+    const a = (angleDeg-90+90)*Math.PI/180; // placeholder, replaced below
+    return a;
+  }
+  // proper polar helper: angle measured clockwise from top (compass bearing)
+  function pt(cx,cy,r,bearing){
+    const rad = bearing*Math.PI/180;
+    return { x: cx + r*Math.sin(rad), y: cy - r*Math.cos(rad) };
+  }
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const dial = document.getElementById('dial');
+  const CX=200, CY=200;
+
+  function el(tag, attrs){
+    const e = document.createElementNS(svgNS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  // Outer ring
+  dial.appendChild(el('circle',{cx:CX,cy:CY,r:190,fill:'none',stroke:'var(--hairline)','stroke-width':1}));
+  dial.appendChild(el('circle',{cx:CX,cy:CY,r:118,fill:'none',stroke:'var(--hairline)','stroke-width':1}));
+
+  // Wedge ring (annulus), 8 segments with small gaps
+  const gap = 1.6;
+  zones.forEach((z,i)=>{
+    const start = z.center - 22.5 + gap;
+    const end = z.center + 22.5 - gap;
+    const rOuter=165, rInner=122;
+    const p1=pt(CX,CY,rOuter,start), p2=pt(CX,CY,rOuter,end);
+    const p3=pt(CX,CY,rInner,end), p4=pt(CX,CY,rInner,start);
+    const large = (end-start)>180 ? 1:0;
+    const d = `M ${p1.x} ${p1.y} A ${rOuter} ${rOuter} 0 ${large} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${rInner} ${rInner} 0 ${large} 0 ${p4.x} ${p4.y} Z`;
+    dial.appendChild(el('path',{d, fill:ratingColor[z.rating], opacity:0.3, stroke:ratingColor[z.rating], 'stroke-width':1, id:'wedge-'+i}));
+
+    const lp = pt(CX,CY,143,z.center);
+    const t = el('text',{x:lp.x,y:lp.y-4,'text-anchor':'middle',fill:'var(--cream)','font-size':12,'font-family':'Karla, sans-serif','font-weight':600});
+    t.textContent = i===0||i===2||i===4||i===6 ? z.name.split('-')[0] : z.name;
+    dial.appendChild(t);
+    const t2 = el('text',{x:lp.x,y:lp.y+11,'text-anchor':'middle',fill:'var(--muted)','font-size':9,'font-style':'italic','font-family':'Karla, sans-serif'});
+    t2.textContent = z.sanskrit;
+    dial.appendChild(t2);
+  });
+
+  // Tick marks
+  for(let d=0; d<360; d+=15){
+    const isMajor = d%45===0;
+    const isCardinal = d%90===0;
+    const p1 = pt(CX,CY,190,d);
+    const p2 = pt(CX,CY, isMajor?176:184, d);
+    dial.appendChild(el('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke: isCardinal? 'var(--gold-soft)':'var(--hairline)','stroke-width': isCardinal?2:1}));
+  }
+  // Cardinal letters
+  [[0,'N'],[90,'E'],[180,'S'],[270,'W']].forEach(([d,label])=>{
+    const p = pt(CX,CY,203,d);
+    const t = el('text',{x:p.x,y:p.y+5,'text-anchor':'middle',fill:'var(--teal)','font-size':16,'font-family':"'Marcellus', serif",'font-weight':400});
+    t.textContent = label;
+    dial.appendChild(t);
+  });
+
+  // Center hub
+  dial.appendChild(el('circle',{cx:CX,cy:CY,r:15,fill:'var(--indigo-1)',stroke:'var(--gold-soft)','stroke-width':1.5}));
+  dial.appendChild(el('circle',{cx:CX,cy:CY,r:4,fill:'var(--gold-soft)'}));
+
+  // Needle group
+  const needle = el('g',{id:'needle'});
+  needle.appendChild(el('polygon',{points:`${CX},${CY-108} ${CX+9},${CY-14} ${CX-9},${CY-14}`, fill:'var(--gold-soft)'}));
+  needle.appendChild(el('polygon',{points:`${CX},${CY+34} ${CX+7},${CY-8} ${CX-7},${CY-8}`, fill:'var(--muted)', opacity:0.85}));
+  dial.appendChild(needle);
+
+  // ---- State & UI wiring ----
+  const slider = document.getElementById('slider');
+  const degInput = document.getElementById('degInput');
+  const degLabel = document.getElementById('degLabel');
+  const nameLabel = document.getElementById('nameLabel');
+  const sanskritLabel = document.getElementById('sanskritLabel');
+  const badgeLabel = document.getElementById('badgeLabel');
+  const legend = document.getElementById('legend');
+  const detailName = document.getElementById('detailName');
+  const detailDeity = document.getElementById('detailDeity');
+  const detailElement = document.getElementById('detailElement');
+  const detailRating = document.getElementById('detailRating');
+  const detailDesc = document.getElementById('detailDesc');
+  const detailRemedy = document.getElementById('detailRemedy');
+  const status = document.getElementById('compassStatus');
+
+  zones.forEach((z,i)=>{
+    const b = document.createElement('button');
+    b.className='zonecard';
+    b.dataset.idx = i;
+    b.innerHTML = `<span class="dot" style="background:${ratingColor[z.rating]}"></span><span class="zname">${z.name}</span><span class="ztag">${z.ratingLabel}</span>`;
+    b.addEventListener('click', ()=> setHeading(z.center));
+    legend.appendChild(b);
+  });
+
+  function setHeading(deg, opts){
+    deg = ((Math.round(deg)%360)+360)%360;
+    needle.setAttribute('transform', `rotate(${deg} ${CX} ${CY})`);
+    slider.value = deg;
+    degInput.value = deg;
+    degLabel.textContent = deg+'°';
+
+    const z = getZone(deg);
+    nameLabel.textContent = z.name;
+    sanskritLabel.textContent = z.sanskrit;
+    badgeLabel.innerHTML = `<span class="badge ${z.rating}">${z.ratingLabel}</span>`;
+
+    detailName.textContent = `${z.name} · ${z.sanskrit}`;
+    detailDeity.textContent = z.deity;
+    detailElement.textContent = z.element;
+    detailRating.textContent = z.ratingLabel;
+    detailDesc.textContent = z.desc;
+    if(z.remedy){ detailRemedy.style.display='block'; detailRemedy.textContent = '💡 '+z.remedy; }
+    else { detailRemedy.style.display='none'; }
+
+    zones.forEach((zz,i)=> legend.children[i].classList.toggle('active', zz===z));
+    if(!opts || !opts.silent){}
+  }
+
+  slider.addEventListener('input', e=> setHeading(+e.target.value));
+  degInput.addEventListener('input', e=>{
+    let v = +e.target.value;
+    if(isNaN(v)) return;
+    setHeading(v);
+  });
+  document.getElementById('resetBtn').addEventListener('click', ()=> setHeading(0));
+
+  // Drag interaction on dial
+  const stage = document.getElementById('dialStage');
+  let dragging=false;
+  function angleFromEvent(clientX, clientY){
+    const rect = stage.getBoundingClientRect();
+    const cx = rect.left+rect.width/2, cy = rect.top+rect.height/2;
+    const dx = clientX-cx, dy = clientY-cy;
+    let bearing = Math.atan2(dx,-dy)*180/Math.PI;
+    return ((bearing%360)+360)%360;
+  }
+  function startDrag(x,y){ dragging=true; setHeading(angleFromEvent(x,y)); }
+  function moveDrag(x,y){ if(dragging) setHeading(angleFromEvent(x,y)); }
+  function endDrag(){ dragging=false; }
+
+  stage.addEventListener('mousedown', e=> startDrag(e.clientX,e.clientY));
+  window.addEventListener('mousemove', e=> moveDrag(e.clientX,e.clientY));
+  window.addEventListener('mouseup', endDrag);
+  stage.addEventListener('touchstart', e=>{ const t=e.touches[0]; startDrag(t.clientX,t.clientY); }, {passive:true});
+  stage.addEventListener('touchmove', e=>{ const t=e.touches[0]; moveDrag(t.clientX,t.clientY); }, {passive:true});
+  stage.addEventListener('touchend', endDrag);
+
+  // Device compass
+  let liveActive=false;
+  function handleOrientation(e){
+    let heading;
+    if (typeof e.webkitCompassHeading === 'number') {
+      heading = e.webkitCompassHeading;
+    } else if (e.alpha !== null && e.alpha !== undefined) {
+      heading = 360 - e.alpha;
+    } else { return; }
+    setHeading(heading);
+  }
+  function stopLive(){
+    liveActive=false;
+    window.removeEventListener('deviceorientationabsolute', handleOrientation, true);
+    window.removeEventListener('deviceorientation', handleOrientation, true);
+    liveBtn.textContent = 'Use device compass';
+    status.textContent = 'Reading locked. Drag the needle or edit the degree to adjust.';
+  }
+  const liveBtn = document.getElementById('liveBtn');
+  liveBtn.addEventListener('click', ()=>{
+    if(liveActive){ stopLive(); return; }
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      DeviceOrientationEvent.requestPermission().then(state=>{
+        if(state==='granted'){
+          window.addEventListener('deviceorientation', handleOrientation, true);
+          liveActive=true; liveBtn.textContent='Stop & lock reading';
+          status.textContent = 'Point the top of your phone the way your front door faces, standing at the threshold looking outward.';
+        } else {
+          status.textContent = 'Compass permission was denied — use the dial or type a degree instead.';
+        }
+      }).catch(()=>{ status.textContent = 'Could not access the compass on this device — use the dial or type a degree instead.'; });
+    } else if ('ondeviceorientationabsolute' in window) {
+      window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+      liveActive=true; liveBtn.textContent='Stop & lock reading';
+      status.textContent = 'Point the top of your phone the way your front door faces, standing at the threshold looking outward.';
+    } else if ('ondeviceorientation' in window) {
+      window.addEventListener('deviceorientation', handleOrientation, true);
+      liveActive=true; liveBtn.textContent='Stop & lock reading';
+      status.textContent = 'Point the top of your phone the way your front door faces, standing at the threshold looking outward.';
+    } else {
+      status.textContent = 'This device or browser doesn\'t expose a compass sensor — use the dial or type a degree instead.';
+    }
+  });
+
+  setHeading(0);
+})();
+</script>
+</body>
+</html>
